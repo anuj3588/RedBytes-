@@ -1,5 +1,7 @@
 # RedBytes-
 
+NOTE * Some API will not show browsable fields on browser due to custom serializers and related fields
+
 Step 1 = Set creadintial for database
 
 Step 2 = Add roles

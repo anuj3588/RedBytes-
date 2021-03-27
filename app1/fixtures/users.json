@@ -1,0 +1,20 @@
+[
+    {
+        "model": "app1.Role",
+        "pk": 1,
+        "fields": {
+            "id":1,
+            "role":"Vendor",
+            "slug": "vendor"
+        }
+    },
+    {
+        "model": "app1.Role",
+        "pk": 2,
+        "fields": {
+            "id":2,
+            "role":"User",
+            "slug": "user"
+        }
+    }
+]

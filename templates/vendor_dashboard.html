@@ -1,0 +1,109 @@
+{% extends 'master.html' %}
+{% block title %}
+    Blogs
+{% endblock %}
+{% block contentsection %}
+{% load static %}
+<div class="container">
+    <hr>
+      <div class="row text-center">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <h4><a href="{% url 'logout' %}">Logout {{request.user.first_name}}</a></h4>
+                </div>
+            </div>
+        </div>
+      </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h3>Add Products</h3>
+        </div>
+        <div class="col">
+            <h3>Products Lists</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form" id="product_add_submit" action="javascript:void(0)">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Price</label>
+                    <input type="text" class="form-control" name="price" placeholder="Enter price">
+                </div>      
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Icon</label>
+                    <input type="file" class="form-control" name="icon">
+                </div>          
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <table style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Sr. no</th>
+                        <th>Icon</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js_logic/list.js' %}"></script>
+<script src="{% static 'js_logic/create.js' %}"></script>
+<script>
+    // list
+    var list_data;
+    function list(){
+        listFullUrlFunction("/api/v1/product/vendor/", getData)
+    }
+    list()
+    
+    function getData(data){
+        setTimeout(()=>{
+            $('#tbody').html('')
+            this.list_data = JSON.parse(data)
+            d = this.list_data
+            console.log(d['vendor_product'])
+            $.each(d['vendor_product'], function(index, value) {
+                var srno = parseInt(index + 1)
+                var table = '<tr><td>'+srno+'</td><td><img width="40" src="'+value.icon+'"></td><td class="text-capitalize">'+value.name+'</td><td>'+value.price+'</td></tr>'   
+                
+                $('#tbody').append(table)
+            })
+        },100)
+    }
+
+    
+    function createFormSubmit(event) {
+        event.preventDefault()
+        var csrf = $('#csrf').val()
+        setTimeout(()=>{
+            const site = $('#sites').val()
+            CreateForm(event,"/api/v1/product/vendor/",csrf) 
+            document.getElementById("product_add_submit").reset()
+            
+        },100)
+      
+    }
+    const VendorCreateForm = document.getElementById("product_add_submit")
+    VendorCreateForm.addEventListener("submit", createFormSubmit)
+
+    // GET PRODUCTS IN CART
+</script>
+{% endblock %}

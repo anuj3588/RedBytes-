@@ -51,7 +51,7 @@ function listRouterWithCustomFunction(url,function_name) {
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
     
-    xhr.open("GET", "/secret/api/v1/router/"+url+"/",true);
+    xhr.open("GET", url,true);
     xhr.onload = function() {
         const response = xhr.response
         f_name(response)

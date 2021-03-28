@@ -85,7 +85,7 @@ class VenderRegisterSerializer(serializers.ModelSerializer):
 class ProductsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Products
-        fields = ['id', 'name', 'price', 'icon', 'vendor','slug', 'products_in_cart']
+        fields = ['id', 'name', 'price', 'icon', 'vendor','slug']
         read_only_fields = ['slug']
 
 class ProductsByVendorSerializer(serializers.ModelSerializer):

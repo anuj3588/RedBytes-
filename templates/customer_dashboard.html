@@ -44,12 +44,32 @@
 <script src="{% static 'js_logic/list.js' %}"></script>
 <script src="{% static 'js_logic/create.js' %}"></script>
 <script>
+    // GET PRODUCTS IN CARTS
+    var cart_product
+    var cart_products = []
+    function cart_product_list(){
+        listRouterWithCustomFunction("/api/v1/product/cart/", getCartProducts)
+    }
+    cart_product_list()
+    
+    function getCartProducts(data){
+        setTimeout(()=>{
+            this.cart_product = JSON.parse(data)
+
+            data = this.cart_product.customer_cart_product
+            $.each(data, function(index, value) {
+                cart_products.push(value.product.id)
+            })
+        },100)
+        list()
+    }
+    // END 
+
     // list
     var list_data;
     function list(){
         listFullUrlFunction("/api/v1/product/customer/", getData)
     }
-    list()
     
     function getData(data){
         setTimeout(()=>{
@@ -57,7 +77,7 @@
             d = this.list_data
             $.each(this.list_data, function(index, value) {
                 var srno = parseInt(index + 1)
-                if(value.products_in_cart[0]){
+                if(cart_products.includes(value.id)){
                     var active = 'checked'
                 }else{
                     var active = ''

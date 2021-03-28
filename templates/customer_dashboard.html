@@ -55,7 +55,6 @@
         setTimeout(()=>{
             this.list_data = JSON.parse(data)
             d = this.list_data
-            console.log(d)
             $.each(this.list_data, function(index, value) {
                 var srno = parseInt(index + 1)
                 if(value.products_in_cart[0]){
@@ -64,7 +63,6 @@
                     var active = ''
                 }
                 
-                console.log(active, value.products_in_cart[0])
                 var table = '<tr><td>'+srno+'</td><td><img width="40" src="'+value.icon+'"></td><td class="text-capitalize">'+value.name+'</td><td>'+value.price+'</td><td><input type="checkbox" '+active+'  onclick="add_to_carts('+"'product'"+','+value.id+' )" ></td</tr>'   
                 
                 $('#tbody').append(table)

@@ -8,10 +8,9 @@ from django.http import HttpResponse
 def dashBoardView(request):
     nextUrl = request.GET.get('next', )
     if request.user.is_authenticated and not request.user.is_staff:
-        print('request.user.role',  request.user.role.role, str(request.user.role) == 'vendor')
-        if request.user.role.role == 'vendor':
+        if request.user.role.role.lower() == 'vendor':
             return render(request, 'vendor_dashboard.html')
-        elif request.user.role.role == 'user':
+        elif request.user.role.role.lower() == 'user':
             return render(request, 'customer_dashboard.html')
         else:
             return HttpResponse('<h4 class="text-center">Please register as user or vendor</h4>')

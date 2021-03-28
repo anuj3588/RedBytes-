@@ -2,10 +2,11 @@ asgiref==3.3.1
 Django==3.1.7
 djangorestframework==3.12.3
 extras==1.0.0
-fixtures==3.0.0
+fixture==1.5.11
 linecache2==1.0.0
 pbr==5.5.1
 Pillow==8.1.2
+psycopg2==2.8.6
 python-mimeparse==1.6.0
 pytz==2021.1
 six==1.15.0
